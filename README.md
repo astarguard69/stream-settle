@@ -15,7 +15,7 @@ Stream Settle is more than a ideathon project - it's a blueprint for transformin
 - **Event:** [Canton Construct Ideathon 2025](https://hackathon.stackup.dev/web/events/canton-construct-ideathon)
 - **Track:** Tokenized Real-World Assets (RWA)
 - **Team:** Stream Settle Protocol
-- **Status:** ✅ **5 Working Scenarios | 700+ Lines Production Code | Zero Mocks**
+- **Status:** ✅ **2 Working Scenarios | 700+ Lines Production Code | Zero Mocks**
 
 ---
 
