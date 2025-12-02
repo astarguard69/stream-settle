@@ -265,8 +265,6 @@ daml start
 
 ## 🎬 Working Scenarios
 
-We've implemented **5 comprehensive scenarios** - all fully executable, zero mocks:
-
 ### 🏭 Main Demo: Global Manufacturing (scenarioGlobalSteel) ⭐⭐⭐⭐⭐
 
 **The production-ready showcase - run this first!**
@@ -299,10 +297,7 @@ daml script \
 - Corporate delegation (CFO acts on behalf of company)
 
 ---
-
-### Supporting Scenarios (4 Additional)
-
-### Supporting Scenarios (4 Additional)
+### Supporting Scenarios
 
 <details>
 <summary><b>📋 Scenario 1: Simple Payment (setup)</b> - Basic flow validation</summary>
@@ -449,7 +444,7 @@ stream-settle/
 
 ### Phase 1: MVP (Complete ✅)
 - [x] Core smart contracts (5 templates)
-- [x] 5 working scenarios
+- [x] 2 working scenarios
 - [x] Dual fee model
 - [x] Hackathon submission
 
@@ -492,13 +487,13 @@ Stream Settle creates a **multi-sided marketplace** with 8 key stakeholder group
 7. **💎 Stream Protocol** - Platform operator (0.4% take rate)
 8. **💵 Stablecoin Issuers** - USDC/USDT providers (settlement layer)
 
-See [index.html](index.html) for detailed actor interactions and real-world examples.
+See [index.html](https://htmlpreview.github.io/?https://github.com/astarguard69/stream-settle/blob/main/index.html) for detailed actor interactions and real-world examples.
 
 ---
 
 ## 📚 Documentation & Resources
 
-- **Landing Page:** [index.html](index.html) - Visual overview for judges
+- **Landing Page:** [index.html](https://htmlpreview.github.io/?https://github.com/astarguard69/stream-settle/blob/main/index.html) - Visual overview for judges
 - **Smart Contracts:** [daml/Main.daml](daml/Main.daml) - Full implementation
 - **Canton Docs:** [docs.digitalasset.com](https://docs.digitalasset.com/build/3.3/index.html)
 - **Daml Language:** [docs.daml.com](https://docs.daml.com/)
@@ -548,16 +543,6 @@ Invoices are the **perfect RWA:**
 
 ---
 
-## 📚 Additional Resources
-
-- **🎨 Visual Overview:** [index.html](index.html) - Landing page for judges
-- **💻 Smart Contracts:** [daml/Main.daml](daml/Main.daml) - Full implementation
-- **📖 Canton 3.4 Docs:** [docs.digitalasset.com](https://docs.digitalasset.com/build/3.4/)
-- **🔧 Daml Language:** [docs.daml.com](https://docs.daml.com/)
-- **🏅 Hackathon:** [Canton Construct Ideathon](https://hackathon.stackup.dev/web/events/canton-construct-ideathon)
-
----
-
 ## 📄 License
 
 Apache 2.0 - See [LICENSE](LICENSE) file
@@ -580,8 +565,6 @@ Special thanks to:
 ### 🎯 Stream Settle Protocol
 
 **Empowering Global Supply Chains Through Decentralized Finance**
-
-[View Demo](index.html) • [Read Code](daml/Main.daml) • [Canton Docs](https://docs.digitalasset.com/build/3.4/)
 
 *December 2025 | Tokenized Real-World Assets Track*
 
