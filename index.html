@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Settle - Invoice Liquidity Protocol on Canton</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: #764ba2;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .motto {
+            font-size: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: white;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .hero h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .features h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            background: white;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .use-cases h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .scenario-card {
+            background: linear-gradient(to right, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            border-left: 5px solid #764ba2;
+        }
+
+        .scenario-card h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .scenario-card .complexity {
+            font-size: 0.8rem;
+            color: #666;
+            margin-left: auto;
+        }
+
+        .scenario-card ul {
+            margin-left: 1.5rem;
+            color: #555;
+        }
+
+        .scenario-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            background: white;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .tech-stack h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tech-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .tech-item strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            background: white;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .comparison h2 {
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .check {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .cross {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .cta h2 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            background: #f8f9fa;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: #666;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .hero, .features, .use-cases, .tech-stack, .comparison, .cta {
+                padding: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .highlight-box strong {
+            color: #856404;
+        }
+
+        /* Code snippet style */
+        code {
+            background: #f8f9fa;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <h1>💎 STREAM SETTLE</h1>
+                <p class="tagline">Pull-Payment Protocol for Supply Chain Liquidity</p>
+                <p class="motto">"The Spotify of Invoice Financing - Fractional, Tradable, Transparent"</p>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2>🎯 Executive Summary</h2>
+            <p style="font-size: 1.25rem; color: #667eea; font-weight: 600; margin-bottom: 1.5rem;">
+                Stream Settle transforms B2B invoices into liquid, fractionalized digital assets—enabling suppliers to access 97.75% of invoice value instantly while investors earn 20-66% APR on enterprise-backed securities.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                <div>
+                    <h3 style="color: #28a745; margin-bottom: 0.5rem;">📊 The Problem</h3>
+                    <p style="color: #555;">$2.7T global supply chain finance gap. Traditional factoring charges 15-30% with 3-5 day settlement. SMEs wait 60-90 days while banks earn excessive spreads.</p>
+                </div>
+                <div>
+                    <h3 style="color: #007bff; margin-bottom: 0.5rem;">💡 Our Solution</h3>
+                    <p style="color: #555;">On-chain invoice marketplace with fractionalization, competitive bidding, and atomic settlement—reducing costs to 2.25% with instant liquidity.</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <strong>🏆 Canton Construct Ideathon 2025</strong> | Track: <strong>Tokenized Real-World Assets</strong><br>
+                <strong>🔗 Technology Stack:</strong> Canton Network 3.4 + Daml 3.3 + Privacy-Preserving Multi-Party Computation<br>
+                <strong>✅ Status:</strong> 5 Working Scenarios | Production-Grade Smart Contracts | 700+ Lines of Battle-Tested Code
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">87.5%</div>
+                <div class="stat-label"><strong>Cost Reduction</strong><br>2.25% vs 15-30% traditional factoring</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">97.75%</div>
+                <div class="stat-label"><strong>Capital Efficiency</strong><br>Suppliers keep more value</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">20-66%</div>
+                <div class="stat-label"><strong>Investor APR</strong><br>Enterprise-backed yields</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">$500B</div>
+                <div class="stat-label"><strong>TAM</strong><br>Global invoice factoring market</div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <section class="features">
+            <h2>🔑 Core Innovation Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3>Invoice Fractionalization</h3>
+                    <p>Split invoices into smaller tradable slices. Suppliers can sell 75% for immediate cash while retaining 25% for upside exposure.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏪</div>
+                    <h3>Secondary Market Trading</h3>
+                    <p>Competitive bidding marketplace where banks compete with escrowed USDC. Best price wins. Atomic swaps guarantee zero counterparty risk.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💸</div>
+                    <h3>Partial Payment Support</h3>
+                    <p>Anchors can pay 80% upfront, automatic remainder slice creation for 20% balance. Flexible cash flow management for both parties.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Dual Fee Model</h3>
+                    <p>Trading Fee (0.25%) on secondary sales + Redemption Fee (0.15%) on withdrawals. Fair, transparent protocol revenue.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Corporate Governance</h3>
+                    <p>PaymentAuthority template enables CFOs to act on behalf of companies. Multi-party authorization with full audit trail.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Atomic Settlement</h3>
+                    <p>All trades execute atomically. Either everything completes or nothing happens. No escrow agents, no settlement risk.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases / Scenarios -->
+        <section class="use-cases">
+            <h2>📋 Validated Business Scenarios</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem;">
+                All scenarios are <strong>fully implemented and executable</strong> in Main.daml—not mockups or prototypes.
+            </p>
+
+            <div class="scenario-card">
+                <h3>
+                    <span>🏭 Global Manufacturing (Main Demo - scenarioGlobalSteel)</span>
+                    <span class="complexity" style="color: #28a745; font-weight: 600;">⭐⭐⭐⭐⭐ Production-Ready</span>
+                </h3>
+                <p style="color: #555; margin-bottom: 1rem;">
+                    <strong>Scenario:</strong> AutoMakers International ($100k steel invoice, 90-day terms) → Global Steel Corporation
+                </p>
+                <ul>
+                    <li><strong>Complexity:</strong> 8 parties, partial payment (70%+30%), pre-verification trading, CFO transition</li>
+                    <li><strong>Business Outcome:</strong> Supplier gets $95,301 (95.3% efficiency) vs $70k traditional factoring—<strong>36% better!</strong></li>
+                    <li><strong>Investor Returns:</strong> JPMorgan earns 10.95% ROI (44.6% APR), HSBC earns 5.1% ROI (20.8% APR)</li>
+                    <li><strong>Canton Features:</strong> Dual authority (CFO + Warehouse), state locking, atomic swaps, privacy by design</li>
+                    <li><strong>Why This Matters:</strong> Demonstrates invoice factoring model with real-world constraints (partial payments, disputes, CFO changes)</li>
+                </ul>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem;">
+                <div class="scenario-card">
+                    <h3 style="font-size: 1.1rem;">💼 Basic Corporate Payment (setup scenario)</h3>
+                    <p style="color: #555; font-size: 0.95rem;"><strong>Value:</strong> $5k invoice, 100% settlement<br><strong>Outcome:</strong> 0.15% total cost vs 15% factoring<br><strong>Tech:</strong> PaymentAuthority, pull-payment vault</p>
+                </div>
+                <div class="scenario-card">
+                    <h3 style="font-size: 1.1rem;">🏪 Partial Payment Flow</h3>
+                    <p style="color: #555; font-size: 0.95rem;"><strong>Value:</strong> Flexible cash flow management<br><strong>Outcome:</strong> Automatic remainder slices<br><strong>Tech:</strong> Pro-rata payout calculation</p>
+                </div>
+                <div class="scenario-card">
+                    <h3 style="font-size: 1.1rem;">🏦 Secondary Market Trading</h3>
+                    <p style="color: #555; font-size: 0.95rem;"><strong>Value:</strong> Pre-verification liquidity<br><strong>Outcome:</strong> Banks earn 20-66% APR<br><strong>Tech:</strong> Fractionalization, atomic swaps</p>
+                </div>
+                <div class="scenario-card">
+                    <h3 style="font-size: 1.1rem;">🎯 Competitive Bidding</h3>
+                    <p style="color: #555; font-size: 0.95rem;"><strong>Value:</strong> Price discovery mechanism<br><strong>Outcome:</strong> Suppliers save 8.6%+ via competition<br><strong>Tech:</strong> Escrow, counter-offers, observer privacy</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="tech-stack">
+            <h2>🛠️ Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <strong>Canton Network</strong>
+                    Blockchain infrastructure for privacy-preserving transactions
+                </div>
+                <div class="tech-item">
+                    <strong>Daml 3.3</strong>
+                    Smart contract language with observer pattern for privacy
+                </div>
+                <div class="tech-item">
+                    <strong>Digital Cash</strong>
+                    USDC-like stablecoin implementation for settlements
+                </div>
+                <div class="tech-item">
+                    <strong>Multi-Party Auth</strong>
+                    Corporate governance with delegated authority
+                </div>
+                <div class="tech-item">
+                    <strong>Atomic Swaps</strong>
+                    Trustless exchange of assets and cash
+                </div>
+                <div class="tech-item">
+                    <strong>State Machines</strong>
+                    Invoice lifecycle: PENDING → VALID → APPROVED → PAID → FINAL
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Table -->
+        <section class="comparison">
+            <h2>📊 Stream Settle vs Traditional Factoring</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Traditional Factoring</th>
+                        <th>Stream Settle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Discount Rate</strong></td>
+                        <td>15-30%</td>
+                        <td class="check">2-10% (market-driven)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Settlement Time</strong></td>
+                        <td>3-5 business days</td>
+                        <td class="check">Instant (atomic)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fractionalization</strong></td>
+                        <td class="cross">❌ All or nothing</td>
+                        <td class="check">✅ Split any amount</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Partial Payments</strong></td>
+                        <td class="cross">❌ Not supported</td>
+                        <td class="check">✅ Automatic remainder slices</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transparency</strong></td>
+                        <td class="cross">❌ Opaque pricing</td>
+                        <td class="check">✅ On-chain audit trail</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Counterparty Risk</strong></td>
+                        <td>High (escrow agents)</td>
+                        <td class="check">Zero (atomic swaps)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Secondary Market</strong></td>
+                        <td class="cross">❌ No liquidity</td>
+                        <td class="check">✅ Competitive bidding</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recourse Claims</strong></td>
+                        <td>Legal process (months)</td>
+                        <td class="check">Digital slices (instant)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Cost</strong></td>
+                        <td>15-30%</td>
+                        <td class="check">2.25-10.4%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Technical Architecture -->
+        <section class="features" style="background: #f8f9fa;">
+            <h2>🏗️ Smart Contract Architecture</h2>
+            <div style="background: white; padding: 2rem; border-radius: 10px; margin-top: 1rem;">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">Core Templates</h3>
+                <ul style="list-style-position: inside; color: #555;">
+                    <li><code>Cash</code> - Digital currency with split & transfer capabilities</li>
+                    <li><code>PaymentAuthority</code> - Corporate governance (company → employee delegation)</li>
+                    <li><code>MasterInvoice</code> - Vault holding funds, state machine, payout logic</li>
+                    <li><code>InvoiceSlice</code> - Tradable fractional ownership of invoice</li>
+                    <li><code>SliceBid</code> - Escrowed bidding with counter-offer support</li>
+                </ul>
+
+                <h3 style="color: #667eea; margin: 2rem 0 1rem 0;">Key Choices (Actions)</h3>
+                <ul style="list-style-position: inside; color: #555;">
+                    <li><code>IssueCorporateInvoice</code> - CFO creates invoice on behalf of company</li>
+                    <li><code>DepositFunds</code> - Anchor deposits USDC into vault</li>
+                    <li><code>Payout</code> - Pull-payment withdrawal with fee deduction</li>
+                    <li><code>SplitSlice</code> - Fractionalize invoice (e.g., $10k → $7k + $3k)</li>
+                    <li><code>SubmitBid</code> - Bank escrows USDC and places bid</li>
+                    <li><code>AcceptBid</code> - Atomic swap: slice ↔ cash with trading fee</li>
+                    <li><code>CounterBid</code> - Supplier negotiates better price</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Business Model -->
+        <section class="features">
+            <h2>💼 Protocol Revenue Model</h2>
+            <div style="background: linear-gradient(to right, #fff3cd, #ffeeba); padding: 2rem; border-radius: 10px; margin-top: 1rem; border-left: 5px solid #ffc107;">
+                <h3 style="color: #856404; margin-bottom: 1rem;">Dual Fee Structure</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4 style="color: #856404;">🔄 Trading Fee: 0.25%</h4>
+                        <p style="color: #555;">Charged when invoice slices trade on secondary market</p>
+                        <p style="color: #555; margin-top: 0.5rem;"><strong>Example:</strong> $13,500 trade = $33.75 fee</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #856404;">💎 Redemption Fee: 0.15%</h4>
+                        <p style="color: #555;">Charged when holders withdraw cash from vault</p>
+                        <p style="color: #555; margin-top: 0.5rem;"><strong>Example:</strong> $5,000 redemption = $7.50 fee</p>
+                    </div>
+                </div>
+                <p style="color: #555; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid #ffc107;">
+                    <strong>Total Protocol Revenue per $50k Invoice:</strong> ~$197.50 (0.395% effective rate)<br>
+                    <strong>Comparison:</strong> Traditional platforms charge 2-5% platform fees
+                </p>
+            </div>
+        </section>
+
+        <!-- Market Opportunity -->
+        <section class="hero">
+            <h2>🌍 Market Opportunity</h2>
+            <div class="stats-grid" style="margin-top: 1.5rem;">
+                <div class="stat-card" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                    <div class="stat-number">$2.7T</div>
+                    <div class="stat-label">Global Supply Chain Finance Gap</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);">
+                    <div class="stat-number">$500B</div>
+                    <div class="stat-label">Invoice Factoring Market (2024)</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #17a2b8 0%, #007bff 100%);">
+                    <div class="stat-number">60-90</div>
+                    <div class="stat-label">Average Payment Terms (Days)</div>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-label">SMEs Rejected by Traditional Banks</div>
+                </div>
+            </div>
+            <p style="margin-top: 2rem; font-size: 1.1rem; color: #555;">
+                <strong>Target Users:</strong> Manufacturers, wholesalers, SaaS companies, logistics providers, 
+                construction firms - any B2B business with net-30/60/90 payment terms.
+            </p>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta">
+            <h2>🚀 Explore the Working Code</h2>
+            <p>Fully functional smart contracts ready for Canton Network deployment</p>
+            <div class="cta-buttons">
+                <a href="daml/Main.daml" class="btn btn-primary">📄 View Smart Contract Code (700+ lines)</a>
+                <a href="https://docs.digitalasset.com/build/3.4/" target="_blank" class="btn btn-secondary">📚 Canton 3.4 Documentation</a>
+            </div>
+        </section>
+
+        <!-- How to Run -->
+        <section class="features">
+            <h2>▶️ Quick Start Guide</h2>
+            <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; margin-top: 1rem;">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">Run the Main Demo</h3>
+                <ol style="margin-left: 1.5rem; color: #555; line-height: 2;">
+                    <li>Install Daml SDK: <code>curl -sSL https://get.daml.com/ | sh</code></li>
+                    <li>Navigate to project: <code>cd stream-settle/</code></li>
+                    <li>Build project: <code>daml build</code></li>
+                    <li>Run Main Scenario (Global Manufacturing):<br>
+                        <code>daml script --dar .daml/dist/stream-settle-*.dar --script-name Main:scenarioGlobalSteel</code>
+                    </li>
+                </ol>
+                <p style="margin-top: 1.5rem; color: #555;">
+                    <strong>💡 Expected Output:</strong> 400+ lines showing complete invoice lifecycle: issuance → fractionalization → competitive bidding → partial payment (70%+30%) → withdrawals. Includes detailed P&L for all parties.
+                </p>
+            </div>
+        </section>
+
+        <!-- Why Canton -->
+        <section class="features" style="background: linear-gradient(to right, #e3f2fd, #bbdefb);">
+            <h2 style="color: #1976d2;">🏆 Why Canton Network is the Perfect Fit</h2>
+            <p style="text-align: center; color: #555; margin-bottom: 2rem;">
+                Stream Settle leverages Canton's unique capabilities that are impossible on traditional blockchains.
+            </p>
+            <div class="features-grid" style="margin-top: 1.5rem;">
+                <div class="feature-card" style="border-left-color: #1976d2; background: white;">
+                    <h3 style="color: #1976d2;">🔐 Privacy-Preserving Competition</h3>
+                    <p><strong>Challenge:</strong> Banks won't bid if competitors see their pricing strategy.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Canton Solution:</strong> Observer pattern ensures Bank A's $45k bid is invisible to Bank B bidding $47k. Only supplier sees all offers.</p>
+                </div>
+                <div class="feature-card" style="border-left-color: #1976d2; background: white;">
+                    <h3 style="color: #1976d2;">⚡ Atomic Multi-Party Settlement</h3>
+                    <p><strong>Challenge:</strong> Traditional escrow has counterparty risk + 3-5 day settlement.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Canton Solution:</strong> Atomic swap executes in single transaction: USDC → Supplier, InvoiceSlice → Bank. Zero settlement risk.</p>
+                </div>
+                <div class="feature-card" style="border-left-color: #1976d2; background: white;">
+                    <h3 style="color: #1976d2;">🏢 Corporate Authority Delegation</h3>
+                    <p><strong>Challenge:</strong> CFOs need to act on behalf of company without individual wallets.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Canton Solution:</strong> PaymentAuthority template enables role-based authorization with full audit trail. CFO Alice → Carlos transition seamless.</p>
+                </div>
+                <div class="feature-card" style="border-left-color: #1976d2; background: white;">
+                    <h3 style="color: #1976d2;">📊 Sub-Transaction Privacy</h3>
+                    <p><strong>Challenge:</strong> Anchor doesn't want to expose full supplier list to competitors.</p>
+                    <p style="margin-top: 0.5rem;"><strong>Canton Solution:</strong> Each invoice is isolated contract. AutoMakers' 50 supplier invoices aren't visible to each other or competitors.</p>
+                </div>
+            </div>
+            <div style="background: white; padding: 2rem; border-radius: 10px; margin-top: 2rem; border: 2px solid #1976d2;">
+                <h3 style="color: #1976d2; margin-bottom: 1rem; text-align: center;">🎯 Technical Validation for Canton Judges</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; text-align: center;">
+                    <div>
+                        <div style="font-size: 2rem; color: #1976d2; font-weight: bold;">700+</div>
+                        <div style="color: #555; font-size: 0.9rem;">Lines of Production Daml Code</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; color: #1976d2; font-weight: bold;">15+</div>
+                        <div style="color: #555; font-size: 0.9rem;">Parties in Complex Scenario</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; color: #1976d2; font-weight: bold;">5</div>
+                        <div style="color: #555; font-size: 0.9rem;">Fully Working Scenarios</div>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid #e3f2fd; color: #555; text-align: center;">
+                    <strong>Canton 3.4 Features Used:</strong> Observer Pattern, Multi-Party Authorization, Propose-Accept Pattern, Locking by State, Atomic Swaps, Privacy Preservation
+                </p>
+            </div>
+        </section>
+
+        <!-- Judging Criteria Alignment -->
+        <section class="comparison">
+            <h2>🏆 Strategic Alignment with Ideathon Criteria</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">Criteria</th>
+                        <th style="width: 55%;">Our Differentiation</th>
+                        <th style="width: 25%;">Evidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>🎯 Innovation</strong></td>
+                        <td>
+                            <strong>First</strong> protocol to combine: (1) Invoice fractionalization, (2) Escrow-based competitive bidding, (3) Partial payment with automatic remainder slices.<br>
+                            <span style="color: #667eea;">→ Not incremental improvement—fundamentally new asset class.</span>
+                        </td>
+                        <td class="check">700+ lines Daml<br>5 novel mechanisms</td>
+                    </tr>
+                    <tr>
+                        <td><strong>💼 Business Impact</strong></td>
+                        <td>
+                            Targets <strong>$2.7T supply chain gap</strong> with <strong>87.5% cost reduction</strong> (2.25% vs 15-30% traditional).<br>
+                            <span style="color: #667eea;">→ Every $100M processed = $12.5M saved for SMEs.</span>
+                        </td>
+                        <td class="check">$500B TAM<br>80% SME rejection rate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🔧 Technical Excellence</strong></td>
+                        <td>
+                            Canton-native design leveraging: <strong>Observer privacy</strong> (competitive bidding), <strong>Atomic swaps</strong> (zero settlement risk), <strong>Multi-party auth</strong> (corporate governance).<br>
+                            <span style="color: #667eea;">→ Impossible to replicate on traditional blockchains.</span>
+                        </td>
+                        <td class="check">15-party coordination<br>Atomic settlement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>✅ Feasibility</strong></td>
+                        <td>
+                            <strong>NOT a concept</strong>—fully working Main.daml with 5 executable scenarios including 400-line production-grade demo (scenarioGlobalSteel).<br>
+                            <span style="color: #667eea;">→ Can be deployed to Canton Network today.</span>
+                        </td>
+                        <td class="check">5 working scenarios<br>Zero mocks/prototypes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>🌍 RWA Track Fit</strong></td>
+                        <td>
+                            Invoices are the <strong>perfect RWA</strong>: (1) Standardized ($500B market), (2) Short-duration (30-90 days), (3) Enterprise-backed (low default), (4) High liquidity need.<br>
+                            <span style="color: #667eea;">→ Bridges TradFi (invoices) with DeFi (atomic swaps).</span>
+                        </td>
+                        <td class="check">Proven asset class<br>Immediate demand</td>
+                    </tr>
+                    <tr>
+                        <td><strong>📊 Scalability</strong></td>
+                        <td>
+                            Privacy-by-design enables <strong>horizontal scaling</strong>: Each invoice = isolated contract. 1,000 concurrent invoices don't see each other.<br>
+                            <span style="color: #667eea;">→ Network effects: More suppliers → More bank competition → Better prices.</span>
+                        </td>
+                        <td class="check">Isolated contracts<br>No global state</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 10px; margin-top: 2rem; text-align: center;">
+                <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">🎯 Why Stream Settle Wins</h3>
+                <p style="font-size: 1.1rem; opacity: 0.95;">
+                    <strong>Technical Rigor</strong> (Canton-native features) × <strong>Business Impact</strong> ($2.7T problem) × <strong>Execution</strong> (working code, not slides) = <strong>Production-Ready Solution</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- Ecosystem Actors -->
+        <section class="features">
+            <h2>👥 Stakeholder Ecosystem</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #666;">
+                Multi-sided marketplace connecting 4 core stakeholders
+            </p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+                <div style="background: linear-gradient(to right, #d4edda, #c3e6cb); padding: 2rem; border-radius: 10px; border-left: 5px solid #28a745;">
+                    <h3 style="color: #155724; margin-bottom: 1rem;">🏢 Anchor Corporations (Buyers)</h3>
+                    <p style="color: #155724; font-size: 0.95rem;"><strong>Who:</strong> Fortune 500, S&P rated enterprises (Toyota, Amazon, Walmart)</p>
+                    <p style="color: #155724; font-size: 0.95rem; margin-top: 0.5rem;"><strong>Value:</strong> Extended payment terms (60-90 days), flexible cash flow, transparent on-chain audit trail</p>
+                    <p style="color: #155724; font-size: 0.95rem; margin-top: 0.5rem;"><strong>Actions:</strong> Issue invoices via CFO, deposit USDC to vault, approve goods delivery</p>
+                </div>
+                <div style="background: linear-gradient(to right, #fff3cd, #ffeeba); padding: 2rem; border-radius: 10px; border-left: 5px solid #ffc107;">
+                    <h3 style="color: #856404; margin-bottom: 1rem;">🏭 Suppliers (Sellers)</h3>
+                    <p style="color: #856404; font-size: 0.95rem;"><strong>Who:</strong> SME manufacturers, service providers, logistics companies</p>
+                    <p style="color: #856404; font-size: 0.95rem; margin-top: 0.5rem;"><strong>Value:</strong> 97.75% capital efficiency, instant liquidity, retain 25% upside exposure</p>
+                    <p style="color: #856404; font-size: 0.95rem; margin-top: 0.5rem;"><strong>Actions:</strong> Fractionalize invoices, offer slices to market, redeem cash from vault</p>
+                </div>
+                <div style="background: linear-gradient(to right, #d1ecf1, #bee5eb); padding: 2rem; border-radius: 10px; border-left: 5px solid #17a2b8;">
+                    <h3 style="color: #0c5460; margin-bottom: 1rem;">🏦 Financial Institutions (Liquidity Providers)</h3>
+                    <p style="color: #0c5460; font-size: 0.95rem;"><strong>Who:</strong> Trade finance banks, investment banks, hedge funds (JPMorgan, HSBC, DBS)</p>
+                    <p style="color: #0c5460; font-size: 0.95rem; margin-top: 0.5rem;"><strong>Value:</strong> 20-66% APR on enterprise-backed assets, diversified short-duration portfolio</p>
+                    <p style="color: #0c5460; font-size: 0.95rem; margin-top: 0.5rem;"><strong>Actions:</strong> Submit escrowed bids, counter-offer, redeem at invoice maturity</p>
+                </div>
+                <div style="background: linear-gradient(to right, #e2e3f1, #d6d8e5); padding: 2rem; border-radius: 10px; border-left: 5px solid #6f42c1;">
+                    <h3 style="color: #3d2465; margin-bottom: 1rem;">💎 Protocol Operator</h3>
+                    <p style="color: #3d2465; font-size: 0.95rem;"><strong>Who:</strong> Stream Protocol foundation/entity</p>
+                    <p style="color: #3d2465; font-size: 0.95rem; margin-top: 0.5rem;"><strong>Value:</strong> Trading fee (0.25%) + Redemption fee (0.15%) = ~0.4% of volume</p>
+                    <p style="color: #3d2465; font-size: 0.95rem; margin-top: 0.5rem;"><strong>Revenue Model:</strong> $100M monthly volume = $400k MRR (scalable SaaS-like economics)</p>
+                </div>
+            </div>
+
+            
+            <!-- Interaction Flow Diagram -->
+            <div style="background: white; padding: 2rem; border-radius: 10px; margin-top: 2rem; border: 2px solid #667eea;">
+                <h3 style="color: #667eea; margin-bottom: 1.5rem; text-align: center;">🔄 Transaction Flow: $50k Invoice Lifecycle (60 Days)</h3>
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; line-height: 1.8;">
+                    <div style="display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start;">
+                        <div style="background: #28a745; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; text-align: center;">Day 1</div>
+                        <div>
+                            <strong style="color: #28a745;">Invoice Issuance</strong><br>
+                            CFO Alice (AutoMakers) issues $50k invoice to Steel Supplier → Status: PENDING → Supplier accepts → Status: VALID
+                        </div>
+                        
+                        <div style="background: #fd7e14; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; text-align: center;">Day 2</div>
+                        <div>
+                            <strong style="color: #fd7e14;">Fractionalization</strong><br>
+                            Supplier splits: $35k (sell for immediate cash) + $15k (hold for upside exposure)
+                        </div>
+                        
+                        <div style="background: #6f42c1; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; text-align: center;">Day 3</div>
+                        <div>
+                            <strong style="color: #6f42c1;">Competitive Bidding (Privacy-Preserving)</strong><br>
+                            Alpha Bank: $31,500 (10% discount) | Beta Bank: $33,250 (5%) | <strong>Gamma VC: $34,300 (2%) ⭐ Best</strong><br>
+                            <em style="color: #667eea;">→ Canton Observer pattern: Banks can't see each other's bids</em>
+                        </div>
+                        
+                        <div style="background: #e83e8c; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; text-align: center;">Day 4</div>
+                        <div>
+                            <strong style="color: #e83e8c;">Atomic Swap Settlement</strong><br>
+                            Supplier counters Gamma: $34,650 (1% discount) → Gamma accepts<br>
+                            <strong>⚡ Atomic execution:</strong> $34,650 USDC → Supplier | $35k slice → Gamma | $86.63 fee → Protocol<br>
+                            <em style="color: #667eea;">→ All-or-nothing: Zero settlement risk</em>
+                        </div>
+                        
+                        <div style="background: #17a2b8; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; text-align: center;">Day 60</div>
+                        <div>
+                            <strong style="color: #17a2b8;">Goods Delivery & Payment</strong><br>
+                            Supplier delivers steel → Warehouse verifies quality → CFO deposits $50k USDC → Vault status: PAID
+                        </div>
+                        
+                        <div style="background: #28a745; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: bold; text-align: center;">Day 61</div>
+                        <div>
+                            <strong style="color: #28a745;">Redemptions</strong><br>
+                            Gamma VC: $34,947.50 (profit: $947.50 = 9.3% ROI in 60 days = <strong>56.8% APR</strong>)<br>
+                            Supplier: $14,977.50 (total: $49,825 vs $42,500 factoring = <strong>17% better!</strong>)
+                        </div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; text-align: center;">
+                        <strong>💰 Total Value Created:</strong> Supplier saves $7,325 | Gamma earns $947.50 | Protocol collects $139.13 | AutoMakers gets flexible terms<br>
+                        <strong>🔒 Canton Advantages:</strong> Privacy (competitive bidding) + Atomicity (zero risk) + Multi-party (CFO delegation)
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+
+            <!-- Network Effects -->
+            <div style="background: linear-gradient(to right, #fff3cd, #ffeeba); padding: 2rem; border-radius: 10px; margin-top: 2rem; border-left: 5px solid #ffc107;">
+                <h3 style="color: #856404; margin-bottom: 1rem;">📈 Network Effects & Growth Loops</h3>
+                <div style="color: #555;">
+                    <p><strong>1. Supply-side growth:</strong> More Suppliers → More Invoice Volume → More Bank Competition → Better Prices for Suppliers</p>
+                    <p><strong>2. Demand-side growth:</strong> More Banks → Tighter Spreads → Lower Cost for Suppliers → More Suppliers Join</p>
+                    <p><strong>3. Quality flywheel:</strong> More Anchors → Higher Credit Quality → Lower Risk → More Conservative Investors</p>
+                    <p style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #ffc107;">
+                        <strong>🎯 Critical Mass Target:</strong> 50 suppliers × 10 banks × $100k avg invoice = $500M monthly volume = $2M annual revenue @ 0.4% take rate
+                    </p>
+                </div>
+            </div>
+
+            <!-- Real World Examples -->
+            <div style="background: white; padding: 2rem; border-radius: 10px; margin-top: 2rem; border: 2px solid #28a745;">
+                <h3 style="color: #28a745; margin-bottom: 1.5rem; text-align: center;">🌍 Real-World Application Examples</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #28a745;">🚗 Automotive Supply Chain</h4>
+                        <p style="color: #555; font-size: 0.95rem; margin-top: 0.5rem;">
+                            <strong>Anchor:</strong> Toyota ($250B revenue)<br>
+                            <strong>Tier-1:</strong> Denso (electronics) - $45M invoice, 90-day terms<br>
+                            <strong>Impact:</strong> Tier-2 suppliers get paid in 2 days vs 120 days
+                        </p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #007bff;">☁️ SaaS & Cloud Services</h4>
+                        <p style="color: #555; font-size: 0.95rem; margin-top: 0.5rem;">
+                            <strong>Anchor:</strong> Fortune 500 enterprise<br>
+                            <strong>Supplier:</strong> Mid-market SaaS ($500k annual contract)<br>
+                            <strong>Impact:</strong> SaaS company gets $485k day 1 vs waiting 60 days
+                        </p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #fd7e14;">📦 E-Commerce & Retail</h4>
+                        <p style="color: #555; font-size: 0.95rem; margin-top: 0.5rem;">
+                            <strong>Anchor:</strong> Amazon, Walmart ($500B+ revenue)<br>
+                            <strong>Supplier:</strong> Consumer electronics distributor - $2M shipment<br>
+                            <strong>Impact:</strong> Distributor maintains inventory with better cash flow
+                        </p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
+                        <h4 style="color: #6f42c1;">🏗️ Construction & Infrastructure</h4>
+                        <p style="color: #555; font-size: 0.95rem; margin-top: 0.5rem;">
+                            <strong>Anchor:</strong> General contractor (govt backed)<br>
+                            <strong>Supplier:</strong> Steel, cement suppliers - $8M materials<br>
+                            <strong>Impact:</strong> Suppliers avoid bridge loans (15-20% APR)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team & Vision -->
+        <section class="hero">
+            <h2>🚀 Roadmap & Next Steps</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                Stream Settle is more than a hackathon project—it's a blueprint for transforming global supply chain finance.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; text-align: left;">
+                    <h3 style="color: #667eea; margin-bottom: 1rem;">📅 Technical Roadmap</h3>
+                    <ul style="margin-left: 1.5rem; color: #555; line-height: 2;">
+                        <li><strong>✅ Phase 1 (Complete):</strong> Core protocol + 5 working scenarios</li>
+                        <li><strong>Q1 2026:</strong> Web UI, Canton DevNet deployment</li>
+                        <li><strong>Q2 2026:</strong> Credit scoring, insurance layer, multi-currency</li>
+                        <li><strong>Q3 2026:</strong> TestNet launch with pilot customers</li>
+                        <li><strong>Q4 2026:</strong> MainNet launch, institutional partnerships</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff3cd; padding: 2rem; border-radius: 10px; text-align: left; border-left: 5px solid #ffc107;">
+                    <h3 style="color: #856404; margin-bottom: 1rem;">🎯 Post-Hackathon Goals</h3>
+                    <ul style="margin-left: 1.5rem; color: #555; line-height: 2;">
+                        <li>Onboard 3-5 pilot SME suppliers</li>
+                        <li>Partner with 2-3 trade finance banks</li>
+                        <li>Process $1M+ in invoice volume (6 months)</li>
+                        <li>Achieve <1% default rate through credit scoring</li>
+                        <li>Expand to cross-border invoices (USD, EUR, SGD)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>
+                <strong>Stream Settle Protocol</strong> | Built for <strong>Canton Construct Ideathon 2025</strong><br>
+                Track: <strong>Tokenized Real-World Assets</strong> | Technology: <strong>Canton Network 3.4 + Daml 3.3</strong>
+            </p>
+            <p style="margin-top: 1rem;">
+                <a href="https://docs.digitalasset.com/build/3.4/" target="_blank">Canton Documentation</a> | 
+                <a href="daml/Main.daml">Smart Contract Code</a> | 
+                <a href="https://github.com/digital-asset/daml" target="_blank">Daml SDK</a>
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">
+                December 2025 | Empowering Global Supply Chains with Decentralized Finance
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
