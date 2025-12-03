@@ -44,6 +44,8 @@ data BidStatus
 -- TEMPLATE: Cash (USDC Digital Currency)
 -- ============================================================================
 
+-- WARNING: Dual signatory requires both issuer AND owner to sign via JSON API
+-- For single-party creation via JSON API, consider using TransferCash pattern
 template Cash
   with
     issuer : Party       -- USDC_Issuer
@@ -76,6 +78,33 @@ template Cash
       controller owner, newOwner
       do
         create this with owner = newOwner
+
+-- ============================================================================
+-- TEMPLATE: CashIssuanceRequest (JSON API Helper - Single Signatory)
+-- ============================================================================
+-- Use this for JSON API creation, then convert to dual-signatory Cash
+
+template CashIssuanceRequest
+  with
+    issuer : Party
+    recipient : Party
+    amount : Decimal
+    currency : Text
+  where
+    signatory issuer
+    observer recipient
+    
+    ensure amount > 0.0
+    
+    -- Recipient accepts and creates dual-signatory Cash
+    choice AcceptCash : ContractId Cash
+      controller recipient
+      do
+        create Cash with
+          issuer = issuer
+          owner = recipient
+          amount = amount
+          currency = currency
 
 -- ============================================================================
 -- TEMPLATE: PaymentAuthority (Corporate Governance)
@@ -291,14 +320,15 @@ template MasterInvoice
           completionEvidence = Some ("EMERGENCY APPROVED: " <> reason)
     
     -- Add holder to observer list
+    -- WARNING: Dynamic observer updates may cause JSON API issues
+    -- Consider using explicit disclosure patterns instead
     choice RegisterHolder : ContractId MasterInvoice
       with
         newHolder : Party
       controller anchor
       do
-        let newObservers = if newHolder `elem` observers 
-                           then observers 
-                           else newHolder :: observers
+        assertMsg "Observer already registered" (not (newHolder `elem` observers))
+        let newObservers = newHolder :: observers
         create this with observers = newObservers
 
 -- ============================================================================
