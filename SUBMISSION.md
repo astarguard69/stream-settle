@@ -555,11 +555,11 @@ Stream Settle is **not just a hackathon project** - it's a **blueprint for the f
 
 ### Our Commitment:
 
-Win or lose this hackathon, we're building Stream Settle.
 
-- **Q1 2026:** DevNet deployment + pilot testing with 5 suppliers
-- **Q2 2026:** TestNet launch + credit scoring integration
-- **Q4 2026:** MainNet launch + institutional partnerships
+- **Q1 2026:** Web UI, Canton DevNet deployment
+- **Q2 2026:** Credit scoring, insurance layer, multi-currency
+- **Q3 2026:** TestNet launch with pilot customers
+- **Q4 2026:** MainNet launch, institutional partnerships
 
 **We're here to stay. We're here to win. We're here to transform supply chain finance with privacy-preserved competitive bidding.**
 
